@@ -1,72 +1,297 @@
-<t name="Homepage" t-name="website.homepage">
-    <t t-set="head">
-        <link rel="preconnect" href="https://singingfiles.com" crossorigin="anonymous"/>
-        <link rel="preload" as="image" href="/web/image/405/480x0/preview.webp" type="image/webp" fetchpriority="high"/>
-    </t>
-    <t t-call="website.layout" pageName.f="homepage">
-        <div id="wrap" class="oe_structure oe_empty" data-contains-ai-content="true">
-            <section class="s_banner pt16 pb48 o_cc o_cc1 o_colored_level" data-snippet="s_banner" data-name="Banner">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-12 col-md-8 col-lg-5 text-center mb-3 mb-lg-0 o_colored_level">
-                            <div class="p-2 d-inline-block" style="width: 100%; max-width: 360px; aspect-ratio: 1 / 1; margin: 0 auto;">
-                                <picture>
-                                    <source srcset="/web/image/405/480x0/preview.webp" type="image/webp"/>
-                                    <img src="/web/image/405/480x0/preview.jpg" class="img img-fluid rounded-4 shadow-lg" alt="Just Games app preview" width="360" height="360" style="width: 100%; height: auto; aspect-ratio: 1 / 1;" loading="eager" fetchpriority="high" decoding="async" src.translate="/web/image/405/480x0/preview.webp"/>
-                                </picture>
-                            </div>
-                        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just Games - Play Games &amp; Earn Rewards</title>
+    <!-- DNS Preconnect for Instant Affiliate Redirect -->
+    <link rel="preconnect" href="https://singingfiles.com" crossorigin="anonymous">
+    <!-- Preload Hero Image for High Performance -->
+    <link rel="preload" as="image" href="preview.webp" type="image/webp" fetchpriority="high">
+    <style>
+        /* CSS Reset & Variables */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --primary-green: #2ed102;
+            --primary-green-hover: #26b302;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            padding-bottom: 90px; /* Space for mobile sticky footer */
+        }
+        /* Centered Mobile-First Card */
+        .landing-card {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            padding: 24px 20px;
+            text-align: center;
+        }
+        /* App Header (Icon, Title, Developer) */
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+            margin-bottom: 16px;
+        }
+        .game-icon {
+            width: 76px;
+            height: 76px;
+            min-width: 76px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+        }
+        .game-icon svg {
+            width: 44px;
+            height: 44px;
+            fill: #ffffff;
+        }
+        .app-meta {
+            flex: 1;
+        }
+        .app-title {
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        .app-dev {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        /* Rating & Downloads Badge */
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background-color: #f9fafb;
+            border: 1px solid var(--border-color);
+            padding: 7px 14px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 18px;
+            width: 100%;
+        }
+        .star-icon {
+            color: #f59e0b;
+            font-size: 0.95rem;
+        }
+        /* Hero Preview Image */
+        .hero-preview {
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 20px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .hero-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* Description Box */
+        .description-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px 16px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .desc-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+        .desc-body {
+            font-size: 0.84rem;
+            color: #475569;
+            line-height: 1.45;
+        }
+        /* Big Green Install Now Button */
+        .install-cta {
+            margin-bottom: 14px;
+        }
+        .btn-install-now {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background-color: var(--primary-green);
+            color: #000000;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(46, 209, 2, 0.45);
+            transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-install-now:hover {
+            background-color: var(--primary-green-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(46, 209, 2, 0.55);
+        }
+        .btn-install-now svg {
+            width: 22px;
+            height: 22px;
+            fill: #000000;
+        }
+        /* Trust & Security Notes */
+        .trust-info {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+        .trust-check {
+            color: #10b981;
+            font-weight: 700;
+            margin-right: 2px;
+        }
+        /* Affiliate Disclosure */
+        .disclosure {
+            font-size: 0.72rem;
+            color: #9ca3af;
+            line-height: 1.4;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            text-align: left;
+        }
+        /* Mobile Sticky Bottom Bar */
+        .mobile-sticky-bar {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-sticky-bar {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 12px 16px;
+                background-color: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(8px);
+                border-top: 1px solid var(--border-color);
+                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+                z-index: 1050;
+            }
+        }
+    </style>
+</head>
+<body>
 
-                        <div class="col-12 col-md-10 col-lg-6 ps-lg-5 text-center text-lg-start o_colored_level">
-                            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 mb-2 rounded-pill bg-o-color-3">
-                                <span class="text-warning"><i class="oi oi-filled" data-icon="star"/></span>
-                                <small class="fw-bold">4.2 • 20K+ Reviews • 100K+ Downloads</small>
-                            </div>
-
-                            <h1 class="display-4 fw-bolder mb-2">Just Games</h1>
-                            <p class="h5 fw-normal text-muted mb-3">By Cash Alarm Company</p>
-
-                            <div class="d-grid d-sm-block mb-3">
-                                <a href="https://singingfiles.com/show.php?l=0&amp;u=2557550&amp;id=73942" target="_blank" rel="noopener sponsored" class="btn btn-primary btn-lg px-5 py-3 fs-4 fw-bold shadow-lg" style="background-color: #2ed102; border-color: #2ed102; color: #000000; letter-spacing: 0.5px;">
-                                    INSTALL NOW <i class="oi ms-2" data-icon="arrow_forward"/>
-                                </a>
-                            </div>
-                            <p class="small text-muted mb-3">
-                                <i class="oi me-1 text-success" data-icon="check_circle"/> Free Download • Instant Access • Verified Safe
-                            </p>
-
-                            <div class="p-3 p-md-4 rounded-3 bg-light border mb-4 shadow-sm text-start">
-                                <h2 class="h5 fw-bold mb-2">Play Any Game &amp; Earn Rewards!</h2>
-                                <p class="text-muted mb-0">Hundreds of fun mini-games in one single app. Play, collect coins, and unlock real rewards. Free to download on iOS &amp; Android.</p>
-                            </div>
-
-                            <div class="pt-3 border-top text-muted small">
-                                <p class="mb-0"><strong>Disclosure:</strong> This page contains an affiliate link. If you install through this link, we may earn a referral reward at no extra cost to you.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div class="d-block d-md-none position-fixed bottom-0 start-0 end-0 p-3 bg-white border-top shadow-lg" style="z-index: 1050;">
-                <a href="https://singingfiles.com/show.php?l=0&amp;u=2557550&amp;id=73942" target="_blank" rel="noopener sponsored" class="btn btn-primary btn-lg w-100 py-3 fs-4 fw-bold shadow" style="background-color: #2ed102; border-color: #2ed102; color: #000000; letter-spacing: 0.5px;">
-                    INSTALL NOW <i class="oi ms-2" data-icon="arrow_forward"/>
-                </a>
+    <main class="landing-card">
+        <!-- App Header (Game Icon, Title, Developer) -->
+        <header class="app-header">
+            <div class="game-icon" aria-label="Just Games Icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                </svg>
             </div>
+            <div class="app-meta">
+                <h1 class="app-title">Just Games</h1>
+                <p class="app-dev">By Cash Alarm Company</p>
+            </div>
+        </header>
 
-            <script type="text/javascript">
-                //
-                document.addEventListener('DOMContentLoaded', function() {
-                  var tid = new URLSearchParams(window.location.search).get('tracking_id');
-                  if (!tid) return;
-                  document.querySelectorAll('a').forEach(function(a) {
-                    if (a.href.indexOf('singingfiles.com') !== -1 &amp;&amp; a.href.indexOf('tracking_id=') === -1) {
-                      a.href = a.href + '&amp;tracking_id=' + encodeURIComponent(tid);
-                    }
-                  });
-                });
-                //
-            </script>
+        <!-- Rating & Downloads Line -->
+        <div class="rating-badge">
+            <span class="star-icon">★</span>
+            <span>4.2 · 20K+ Reviews · 100K+ Downloads</span>
         </div>
-    </t>
-</t>
+
+        <!-- Hero Graphic / Screenshot -->
+        <div class="hero-preview">
+            <picture>
+                <source srcset="preview.webp" type="image/webp">
+                <img src="preview.jpg" alt="Just Games app preview" width="360" height="360" loading="eager" fetchpriority="high" decoding="async">
+            </picture>
+        </div>
+
+        <!-- Description Box -->
+        <section class="description-box">
+            <h2 class="desc-title">Play Any Game &amp; Earn Rewards!</h2>
+            <p class="desc-body">Hundreds of fun mini-games in one single app. Play, collect coins, and unlock real rewards. Free to download on iOS &amp; Android.</p>
+        </section>
+
+        <!-- Big Green Install Button -->
+        <div class="install-cta">
+            <a id="installNowBtn" href="https://singingfiles.com/show.php?l=0&u=2557550&id=73942" target="_blank" rel="noopener sponsored" class="btn-install-now">
+                <span>INSTALL NOW</span>
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <p class="trust-info">
+            <span class="trust-check">✔</span> Free Download &nbsp;•&nbsp; <span class="trust-check">✔</span> Instant Access &nbsp;•&nbsp; <span class="trust-check">✔</span> Verified Safe
+        </p>
+
+        <!-- Disclosure Line -->
+        <footer class="disclosure">
+            <strong>Disclosure:</strong> This page contains an affiliate link. If you install through this link, we may earn a referral reward at no extra cost to you.
+        </footer>
+    </main>
+
+    <!-- Mobile Sticky Bottom Bar (Visible on mobile viewports) -->
+    <div class="mobile-sticky-bar">
+        <a href="https://singingfiles.com/show.php?l=0&u=2557550&id=73942" target="_blank" rel="noopener sponsored" class="btn-install-now">
+            <span>INSTALL NOW</span>
+            <svg viewBox="0 0 24 24">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Tracking Script: Reads tracking_id from URL and appends it to all affiliate buttons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var tid = urlParams.get('tracking_id');
+            if (!tid) return;
+            
+            document.querySelectorAll('a').forEach(function(a) {
+                if (a.href.indexOf('singingfiles.com') !== -1 && a.href.indexOf('tracking_id=') === -1) {
+                    var separator = a.href.indexOf('?') !== -1 ? '&' : '?';
+                    a.href = a.href + separator + 'tracking_id=' + encodeURIComponent(tid);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
